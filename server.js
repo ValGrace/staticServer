@@ -29,7 +29,7 @@ const server = http.createServer((req, res) => {
             networkInterfaces: os.networkInterfaces(),
             uptime: os.uptime()
         })
-        fs.appendFile('osinfo.json', osInformation, function (err, file){
+        fs.writeFile('osinfo.json', osInformation, function (err, file){
             if(err) throw err;
             res.statusCode = 201
             res.setHeader('Content-Type', 'text/plain')
@@ -37,7 +37,7 @@ const server = http.createServer((req, res) => {
         })
     }
     else {
-        res.statusCode = 200
+        res.statusCode = 404
         res.setHeader('Content-Type', 'text/html')
         fs.createReadStream('pages/404.html').pipe(res)
     }
